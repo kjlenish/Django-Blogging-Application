@@ -1,0 +1,53 @@
+{% extends 'base\base.html' %}
+{% load crispy_forms_tags %}
+
+{% block cover %}
+
+<div class="row cus-bg-letter text-center pt-3 pb-3 g-0 justify-content-center container-fluid">
+    <h1><span class="cus-initial">Update</span></h1>
+</div>
+
+{% endblock cover%}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-1 col-md-2 col-lg-3 col-xl-3">
+
+    </div>
+
+    <div class="col-10 col-md-8 col-lg-6 col-xl-6">
+        <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+                <legend class="text-uppercase text-center mb-5"><span class="foot-initial-mini">U</span>pdate your post</legend>
+                <hr>
+
+              <form method="post">
+                {% csrf_token %}
+
+                <fieldset class="form-outline mb-4">
+                    {{ form|crispy }}
+                </fieldset>
+
+                <div class="d-flex justify-content-center">
+                    <div class="p-2">
+                        <button
+                      class="btn btn-block btn-md btn-outline-primary text-dark" type="submit">Update</button>
+                    </div>
+                    <div class="p-2">
+                        <a href="{% url 'blog-detail' object.id %}"><button
+                            class="btn btn-block btn-md btn-outline-secondary text-dark"type="button">Cancel</button></a>
+                    </div>
+                </div>
+              </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-1 col-md-2 col-lg-3 col-xl-3">
+        
+    </div>
+</div>
+
+{% endblock content %}

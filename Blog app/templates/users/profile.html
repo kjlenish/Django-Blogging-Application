@@ -1,0 +1,71 @@
+{% extends 'base\base.html' %}
+{% load crispy_forms_tags %}
+
+{% block cover %}
+<div class="row cus-bg-letter text-center pt-3 pb-3 g-0 justify-content-center container-fluid">
+    <h1><span class="cus-initial">ME</span></h1>
+</div>
+{% endblock cover %}
+
+{% block content %}
+<div class="vh-100 bg-secondary">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-lg-6 mb-4 mb-lg-0">
+          <div class="card mb-3" style="border-radius: .5rem;">
+            <div class="row g-0">
+              <div class="col-md-4 gradient-custom text-center text-white"
+                style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                <img src="{{ obj_profile.profile_img.url }}"
+                  alt="Profile-picture" class="img-fluid my-5" onclick="window.open('{{ obj_profile.profile_img.url }}', '_blank')" style="width: 80px;" />
+                <h4>{{ obj_user.first_name }}</h4>
+                <p>{{ obj_user.last_name }}</p>
+                {% if obj_user == user %}
+                <a class="text-decoration-none" href="{% url 'profile-update' %}"><i class="bi bi-pencil-square"></i></a>
+                {% endif %}
+              </div>
+              <div class="col-md-8">
+                <div class="card-body p-4">
+                    <h6>{{ obj_user.username }}'s profile</h6>
+                  <hr class="mt-0 mb-4">
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>Email</h6>
+                      <p class="text-muted">{{ obj_user.email }}</p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Phone</h6>
+                      {% if obj_profile.phone is null %}
+                        <p class="text-muted">Update your phone number </p>
+                      {% else %}
+                        <p class="text-muted">{{ obj_profile.country_code }} {{ obj_profile.phone }} </p>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <hr class="mt-0 mb-4">
+                  <div class="row pt-1">
+
+                    {% if obj_profile.dob %}
+                    <div class="col-6 mb-3">
+                      <h6>DOB</h6>
+                      <p class="text-muted">{{ obj_profile.dob }}</p>
+                    </div>
+                    {% endif %}
+
+                    {% if obj_profile.fav_mov %}
+                    <div class="col-6 mb-3">
+                      <h6>Favorite Movie</h6>
+                      <p class="text-muted">{{ obj_profile.fav_mov }}</p>
+                    </div>
+                    {% endif %}
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock content %}                                                

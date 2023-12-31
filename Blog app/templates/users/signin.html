@@ -1,0 +1,53 @@
+{% extends 'base\base.html' %}
+{% load crispy_forms_tags %}
+
+{% block cover %}
+
+<div class="row cus-bg-letter text-center pt-3 pb-3 g-0 justify-content-center container-fluid">
+    <h1>Welcome to the <br><span class="cus-initial">PARTY</span></h1>
+</div>
+
+{% endblock cover%}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-1 col-md-2 col-lg-3 col-xl-3">
+
+    </div>
+
+    <div class="col-10 col-md-8 col-lg-6 col-xl-6">
+        <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+                <legend class="text-uppercase text-center mb-5"><span class="foot-initial-mini">L</span>og in to your account</legend>
+                <hr>
+
+              <form method="post">
+                {% csrf_token %}
+
+                <fieldset class="form-outline mb-4">
+                    {{ form|crispy }}
+                </fieldset>
+ 
+                  <div class="d-flex justify-content-center">
+                    <button
+                      class="btn btn-success btn-block btn-lg cus-bg-letter text-secondary" type="submit">Sign In</button>
+                  </div>
+                  <div class="ml-4 text-muted">
+                    <small><a class="text-reset text-decoration-none" href="{% url 'password_reset' %}">Forgot Password?</a></small>
+                  </div>
+  
+                  <p class="text-center text-muted mt-5 mb-0">Don't have an account? <a href="{% url 'signup' %}"
+                      class="fw-bold text-info ml-2 text-decoration-none">Sign Up</a></p>
+              </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-1 col-md-2 col-lg-3 col-xl-3">
+        
+    </div>
+</div>
+
+{% endblock content %}

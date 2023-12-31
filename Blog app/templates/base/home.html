@@ -1,0 +1,84 @@
+{% extends 'base\base.html' %}
+{% load crispy_forms_tags %}
+
+{% block cover %}
+
+  <div class="row row-img g-0 justify-content-center">
+      <img src="https://hopeforfilm.com/wp-content/uploads/2021/10/featured-post.png" alt="cover image">
+      <div class="p-3 text-wrap align-middle text-block mt-5">
+          <h1>“Cinema is the most beautiful fraud in the world.”</h1>
+          <h1 class="text-warning "><span class="un un-white">—Jean Luc</span></h1>
+      </div>
+  </div>
+
+{% endblock cover %}
+
+
+{% block content %}
+
+  <div class="row g-0 container-fluid">
+    <div class="col-md-12 col-lg-6 col-xl-6 image-container">
+      <img class="custom-img" src="https://revenuearchitects.com/wp-content/uploads/2017/02/Blog_pic-1030x584.png" alt="Blogs">
+      <div class="overlay blue-overlay">
+        <div class="overlay-text"> <a class="text-decoration-none overlay-text text-reset" href="{% url 'blog-home' %}"><span class="custom-letter">B</span>LOGS</a></div>
+      </div>
+    </div>
+  
+    <div class="col-md-12 col-lg-6 col-xl-6 image-container">
+      <img class="custom-img" src="https://preview.redd.it/finally-made-a-top-100-favorite-movies-list-v0-mqextiqvexmb1.png?width=640&crop=smart&auto=webp&s=08b92d8b628ca5831244b3c36aea1e580d945c89" alt="Movies">
+      <div class="overlay orange-overlay">
+        <div class="overlay-text"> <a class="text-decoration-none overlay-text text-reset" href="{% url 'blog-home' %}"><span class="custom-letter">M</span>OVIES</a></div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock content %}
+  
+  {% block login %}
+
+  {% if not user.is_authenticated %}
+    <div class="row p-3 bg-dark text-center text-dark justify-content-center">
+      <div class="col-1 col-md-2 col-lg-3 col-xl-3">
+      
+      </div>
+      <div class="col-10 col-md-8 col-lg-6 col-xl-6">
+        <div class="card" style="border-radius: 15px;">
+          <div class="card-body p-5">
+            <legend class="text-uppercase text-center mb-5"><span class="foot-initial-mini">L</span>og in to your account</legend>
+            <hr>
+
+            <form method="post">
+              {% csrf_token %}
+
+              <fieldset class="form-outline mb-4">
+                    {{ form|crispy }}
+              </fieldset>
+
+              <button class="btn btn-success btn-block btn-lg cus-bg-letter text-secondary"
+              type="submit">Sign In</button>
+
+              <p class="text-center text-muted mt-5 mb-0">Don't have an account? <a href="{% url 'signup' %}"
+                    class="fw-bold text-info ml-2 text-decoration-none">Sign Up</a></p>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-1 col-md-2 col-lg-3 col-xl-3">
+      
+      </div>
+
+      <div class="row text-white justify-content-center">
+        <div class="logos">
+          <ul class="list-group list-group-horizontal text-secondary justify-content-center">
+            <i class="bi bi-facebook p-2"></i>
+            <i class="bi bi-whatsapp p-2"></i>
+            <i class="bi bi-snapchat p-2"></i>
+            <i class="bi bi-linkedin p-2"></i>
+          </ul>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% endblock login %}

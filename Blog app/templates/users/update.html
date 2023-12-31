@@ -1,0 +1,160 @@
+{% extends 'base\base.html' %}
+{% load crispy_forms_tags %}
+
+{% block cover %}
+<div class="row cus-bg-letter text-center pt-3 pb-3 g-0 justify-content-center container-fluid">
+    <h1><span class="cus-initial">Update</span></h1>
+</div>
+{% endblock cover %}
+
+{% block content %}
+<div class="bg-secondary">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-lg-6 mb-4 mb-lg-0">
+          <div class="card mb-3" style="border-radius: .5rem;">
+            <div class="row g-0">
+                <div class="card-body p-4">
+                    <h6>Profile Info</h6>
+                    <hr class="mt-0 mb-2">
+
+                    <!-- {% csrf_token %}
+
+                  <hr class="mt-0 mb-2">
+                  <div class="row pt-1 justify-content-center">
+                    <div class="col-md-4 text-center text-white"
+                      style="border-radius: 1rem;">
+                      <img src="{{ p_form.profile_img }}"
+                      alt="Profile-picture" class=" rounded img-fluid my-2 " />
+                    </div>
+                  </div>
+                  <hr class="mt-0 mb-4">
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>First name</h6>
+                      <p class="text-muted">{{ u_form.first_name }}</p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Last name</h6>
+                      <p class="text-muted">{{ u_form.last_name }} </p>
+                    </div>
+                  </div>
+                  <hr class="mt-0 mb-4">
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>Email</h6>
+                      <p class="text-muted">{{ u_form.email }}</p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Username</h6>
+                      <p class="text-muted">{{ u_form.username }}</p>
+                    </div>
+                  </div>
+                  <hr class="mt-0 mb-4">
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>Country Code</h6>
+                      <p class="text-muted">{{ p_form.country_code }}</p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Phone</h6>
+                      <p class="text-muted">{{ p_form.phone }} </p>
+                    </div>
+                  <hr class="mt-0 mb-4">
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>DOB</h6>
+                      <p class="text-muted">{{ p_form.dob }} </p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Favorite Movie</h6>
+                      <p class="text-muted">{{ p_form.fav_mov }}</p>
+                    </div>
+                  </div> -->
+                  <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <fieldset class="form-outline mb-4">
+                      <div class="row pt-1 justify-content-center">
+                        <div class="col-md-4 text-center text-white"
+                          style="border-radius: 1rem;">
+                          <img src="{{ user.profile.profile_img.url }}"
+                          alt="Profile-picture" class=" rounded img-fluid my-2 " />
+                        </div>
+                      </div>
+                      
+                      <hr class="mt-0 mb-4">
+                      
+                      <div class="row pt-1">
+                        <div class="col-6 mb-3">
+                          <p class="text-muted">{{ u_form.first_name|as_crispy_field }}</p>
+                        </div>
+                        <div class="col-6 mb-3">
+                          <p class="text-muted">{{ u_form.last_name|as_crispy_field }} </p>
+                        </div>
+                      </div>
+
+                      <hr class="mt-0 mb-4">
+                      
+                      <div class="row pt-1">
+                        <div class="col-6 mb-3">
+                          <p class="text-muted">{{ u_form.email|as_crispy_field }}</p>
+                        </div>
+                        <div class="col-6 mb-3">
+                          <p class="text-muted">{{ u_form.username|as_crispy_field }}</p>
+                        </div>
+                      </div>
+
+                      <hr class="mt-0 mb-4">
+                      
+                      <div class="row pt-1">
+                        <div class="col-6 mb-3">
+                          <p class="text-muted">{{ p_form.country_code|as_crispy_field }}</p>
+                        </div>
+                        <div class="col-6 mb-3">
+                          <p class="text-muted">{{ p_form.phone|as_crispy_field }} </p>
+                        </div>
+
+                      <hr class="mt-0 mb-4">
+
+                      <div class="row pt-1 justify-content-center">
+                        <div class="text-center">
+                          <p class="text-muted">{{ p_form.dob|as_crispy_field }} </p>
+                        </div>
+                      </div>
+
+                      <hr class="mt-0 mb-4">
+
+                      <div class="row pt-1 justify-content-center">
+                        <div class="text-center">
+                          <p class="text-muted">{{ p_form.fav_mov|as_crispy_field }}</p>
+                        </div>
+                      </div> 
+
+                      <hr class="mt-0 mb-4">
+
+                      <div class="row pt-1 justify-content-center">
+                        <div class="text-center">
+                          <p class="text-muted">{{ p_form.profile_img|as_crispy_field }}</p>
+                        </div>
+                      </div> 
+                      </fieldset>
+                      <div class="d-flex justify-content-center">
+                        <div class="p-2">
+                            <button
+                          class="btn btn-block btn-md btn-outline-success text-dark" type="submit">Update</button>
+                        </div>
+                        <div class="p-2">
+                            <a href="{% url 'profile' %}"><button
+                                class="btn btn-block btn-md btn-outline-secondary text-dark"type="button">Cancel</button></a>
+                        </div>
+                    </div>
+                  </form>
+                </div>   
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock content %}                                                

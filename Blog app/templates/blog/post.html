@@ -1,0 +1,40 @@
+{% extends 'base\base.html' %}
+
+{% block cover %}
+
+<div class="row cus-bg-letter text-center pt-3 pb-3 g-0 justify-content-center container-fluid">
+  <a class="text-reset text-decoration-none" href="{% url 'blog-home' %}"><h1><span class="cus-initial">B</span>LOGS</h1></a>
+</div>
+
+{% endblock cover %}
+
+
+{% block content %}
+<div class="row">
+  <div class="col-md-5 col-lg-7 col-xl-8">
+    {% block main %}
+
+    {% endblock main %}
+  </div>
+
+  <div class="col-md-1 col-lg-1 col-xl-1">
+
+  </div>
+  
+  <div class="col-md-6 col-lg-4 col-xl-3 justify-content-center">
+    <div class="row pt-3 pb-2 justify-content-center">
+      <div class="text-center">
+        <div class="list-group">
+          <a href="{% url 'blog-create' %}" class="list-group-item list-group-item-action ">New Post</a>
+          <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+          <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+          <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
+          <a href="#" class="list-group-item list-group-item-action ">Vestibulum at eros</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+

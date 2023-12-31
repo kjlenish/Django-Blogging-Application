@@ -1,0 +1,53 @@
+{% extends 'base\base.html' %}
+
+{% block cover %}
+
+<div class="row cus-bg-letter text-center pt-5 pb-5 g-0 justify-content-center container-fluid">
+        <h1><span class="cus-initial">B</span>LOGS</h1>
+</div>
+
+{% endblock cover %}
+
+
+{% block content %}
+<div class="row">
+  <div class="col-md-6 col-lg-8 col-xl-9">
+    {% for post in posts %}
+    <div class="row pt-3 pb-2 justify-content-center">
+        <div class="card text-center">
+            <div class="card-header justify-content-center align-middle">
+                <img class="article-img rounded-circle float-start" src="{{ post.author.profile.profile_img.url }}" alt="profile_img">
+                <p class="pt-3">{{ post.author }}</p>
+                
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ post.title }}</h5>
+              <p class="card-text">{{ post.content }}</p>
+            </div>
+            <div class="blockquote-footer">
+                {{ post.date|date:'D, d F o' }}
+            </div>
+          </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="col-md-6 col-lg-4 col-xl-3 justify-content-center">
+      <div class="card text-center">
+          <div class="card-header">
+            <p>shibu</p>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">shibu</h5>
+            <p class="card-text">shibu</p>
+          </div>
+          <div class="blockquote-footer">
+              shibu
+          </div>
+      </div>
+  </div>
+</div>
+
+
+{% endblock content %}
+

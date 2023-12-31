@@ -1,0 +1,198 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MovieBlogger</title>
+    <link rel="icon" href="{% static 'base\IMAGE\mb.png' %}">
+</head>
+<body>
+  <link href="{% static 'base\CSS\style.css' %}", rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <div class="container-fluid g-0">
+    <div class="row container-fluid g-0 bg-white text-black fixed">
+      <div class="col-9 col-sm-9 col-md-4 col-lg-3 p-4">
+          <button class= "clr-btn" onclick="refreshPage()"><h1><span class="custom-letter">M</span>BLOGGER</h1></button>
+      </div>
+      
+      <div class="col-3 col-sm-3 col-md-8 col-lg-9 d-flex justify-content-end">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  {% if user.is_authenticated %}
+                  <li class="nav-item p-4">
+                    <a class="nav-link active" aria-current="page" href="{% url 'base-home' %}"><span class="un un-red">Home</span></a>
+                  </li>
+
+                  <li class="nav-item p-4">
+                    <a class="nav-link active" href="{% url 'blog-home' %}"><span class="un un-red">Blogs</span></a>
+                  </li>
+                  <li class="nav-item p-4">
+                    <a class="nav-link active" href="#"><span class="un un-red">Movies</span></a>
+                  </li>
+                  <li class="nav-item dropdown p-4">
+                    <a class="nav-link active dropdown-toggle" id="navbarDropdown" role="button" aria-expanded="false">
+                      <span class="un un-red">Industries</span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="#"><span class="un un-red">Hollywood</span></a></li>
+                      <li><a class="dropdown-item" href="#"><span class="un un-red">Bollywood</span></a></li>
+                      <li><a class="dropdown-item" href="#"><span class="un un-red">Mollywood</span></a></li>                      
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="#footer"><span class="un un-red">Contact Us</span></a></li>
+                    </ul>
+                  </li>
+                  {% endif %}                  
+
+                  {% if user.is_authenticated %}
+                  <li class="nav-item p-4">
+                    <a class="nav-link active bold text-secondary" aria-current="page" href="{% url 'profile' user.username %}"><span class="un un-red">{{ user.first_name }}</span></a>
+                  </li>
+                  <li class="nav-item p-4">
+                    <a class="text-decoration-none" href="{% url 'signout' %}">
+                      <button type="button" class="btn btnn btn-dark text-white float-end">
+                         Sign Out</button></a>
+                  </li>
+                  {% else %}
+                    <li class="nav-item p-4">
+                      <a class="nav-link active bold text-primary" aria-current="page" href="{% url 'signin' %}"><span class="un un-red">Login</span></a>
+                    </li>
+                    <li class="nav-item p-4">
+                      <a class="text-decoration-none" href="{% url 'signup' %}">
+                        <button type="button" class="btn btnn btn-dark text-white float-end">
+                          Sign Up</button></a>
+                    </li>
+                  {% endif %}
+
+                </ul>
+            </div>
+        </nav>
+      </div>     
+    </div>
+        
+    <div class="row container-fluid g-0 bg-white text-black">
+      <div class="col-9 col-sm-9 col-md-4 col-lg-3 p-4">
+          <button class= "clr-btn"><h1><span class="custom-letter">M</span>BLOGGER</h1></button>
+      </div>
+    </div>
+
+        {% block cover %}
+
+        {% endblock cover %}
+
+
+    <div class="row container-fluid g-0 justify-content-center">
+      {% if messages %}
+      {% for message in messages %}
+
+          <div class="col-md-6 text-center p-1 alert-{{ message.tags }} 
+          border border-{{ message.tags }} rounded"role="alert">
+            {{ message }}
+          </div>
+      
+      {% endfor %}
+      {% endif %}
+
+    </div>
+    
+
+        {% block content %}
+
+        {% endblock content %}
+
+
+        {% block login %}
+
+        {% endblock login %}
+
+
+        
+        <footer id="footer">
+          <div class=" row pagination pt-4">
+            <ul class="pagination justify-content-center">
+            {% if is_paginated %}
+
+                {% if page_obj.has_previous %}
+                    <li class="page-item rounded">
+                        <a class="page-link" href="?page=1" aria-label="Previous">
+                        <span class="un un-red" aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item rounded"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"><span class="un un-red">prev</span></a></li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="page-item rounded active"><a class="page-link" href="?page={{ num }}"><span class="un un-red">{{ num }}</span></a></li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <li class="page-item rounded"><a class="page-link" href="?page={{ num }}"><span class="un un-red">{{ num }}</span></a></li>
+                    {% endif %}
+                {% endfor %}
+                
+                
+                
+                {% if page_obj.has_next %}
+                    <li class="page-item rounded"><a class="page-link" href="?page={{ page_obj.next_page_number }}"><span class="un un-red">next</span></a></li>
+                    <li class="page-item rounded">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Next">
+                        <span class="un un-red" aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                
+            {% endif %}
+            
+            </ul>
+          </div>
+
+          <div class="row pb-2 bg-dark">
+            <div class="col-sm-12 col-md-6 col-lg-5 p-3">
+              <div class="p-3 text-left text-white">
+                <a class="text-reset text-decoration-none" aria-current="page" href="{% url 'base-home' %}"><h1><spam class="foot-initial">M</spam>BLOGGER</h1></a>           
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-2 p-3">
+              <div class="heading text-white">
+                <h1><span class="foot-initial-mini">B</span>rowse</h1>
+              </div>
+              <div class="list-unstyled">
+                <li><a class="text-secondary item p-2" href="{% url 'base-home' %}">Home</a></li>
+                <li><a class="text-secondary item p-2" href="{% url 'blog-home' %}">Blogs</a></li>
+                <li><a class="text-secondary item p-2" href="#">Movies</a></li>
+              </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-2 p-3">
+              <div class="heading text-white">
+                <h1><span class="foot-initial-mini">C</span>ontact us</h1>
+              </div>
+              <div class="list-unstyled">
+                <li><a class="text-secondary item p-2" href="tel:1234567890"><i class="bi bi-telephone "></i> 1234567890</a></li>
+                <li><a class="text-secondary item p-2" href="mailto:support@mblogger.com"><i class="bi bi-envelope-at"></i> support@Level4.com</a></li>
+                <li><a class="text-secondary item p-2" href="#location"><i class="bi bi-geo-alt"></i> Mblogger, HSR Layout, Bangalore, India</a></li>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3 p-3">
+              <div class="heading text-white">
+                <h1><span class="foot-initial-mini">H</span>elp us</h1>
+              </div>
+              <div class="list-unstyled">
+                <li><a class="text-secondary item p-2" href="#"><i class="bi bi-bug-fill"></i> Report a bug</a></li>
+              </div>
+            </div>
+
+          </div>
+        </footer>
+  </div>
+  <script src="{% static '\base\JS\script.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% extends 'blog\post.html' %}
+
+   
+    {% block main %}
+        <div class="row pt-3 pb-2 justify-content-center">
+            <div class="card text-center">
+                <article>
+                    <header class="mb-4">
+                        <h1 class="fw-bolder mb-1">{{ object.title }}</h1>
+                        <div class="text-muted fst-italic mb-2">Posted on {{ object.date|date:'D, d F o' }} by 
+                            <a class="text-decoration-none text-reset" aria-current="page" href="{% url 'blog-user_posts' object.author.username %}">{{ object.author }}</a></div>
+                    </header>
+                    <section class="mb-5">
+                        {{ object.content }}
+                    </section>
+                </article>
+                {% if user == object.author %}
+                    <div class="d-flex justify-content-center">
+                        <div class="p-2">
+                            <a href="{% url 'blog-update' object.id %}"><button
+                        class="btn btn-block btn-md btn-outline-primary text-dark" type="button">Update</button></a>
+                        </div>
+                        <div class="p-2">
+                            <a href="{% url 'blog-delete' object.id %}"><button
+                                class="btn btn-outline-danger btn-block btn-md text-dark"type="button">Delete</button></a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+    {% endblock main %}
